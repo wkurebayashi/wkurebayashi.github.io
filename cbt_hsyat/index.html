@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="utf-8">
+        <title>「データサイエンス基礎」期末試験問題</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">         
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+        <style>
+            #code {
+                size: 40;
+            }
+        </style>
+        <script>
+            var probnum = 0
+            var p = "xyz"
+            var s = 3
+
+            window.addEventListener('DOMContentLoaded', function() {
+              document.querySelector('#open').addEventListener('click', function(e){
+                e.preventDefault()
+                sha256(p + (probnum % s)).then(hash => goto(hash))
+              });
+            });
+
+            function goto(hash) {
+                location.href = "./" + hash + ".pdf"
+            }
+
+            async function sha256(text){
+                const uint8  = new TextEncoder().encode(text)
+                const digest = await crypto.subtle.digest('SHA-256', uint8)
+                return Array.from(new Uint8Array(digest)).map(v => v.toString(16).padStart(2,'0')).join('')
+            }
+            
+            function init() {
+                probnum = new Date().getMilliseconds()
+                code.innerHTML = "<h2>問題コード: " + probnum + "</h2>"
+            }
+        </script>
+    </head>
+    <body onload="init()">
+        <div class="container ml-3 mt-3 mr-3 mb-3">
+            教員の指示に従い、「問題を開く」ボタンを押下して下さい。
+        </div>
+        <div id="code" class="container ml-3 mt-3 mr-3 mb-3"></div>
+        <div class="container ml-3 mt-3 mr-3 mb-3">
+            <input type="button" id="open" class="btn btn-primary" value="問題を開く">
+        </div>
+    </body>
+</html>
