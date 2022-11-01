@@ -20,7 +20,7 @@ p
 	height: auto;
 	margin: 20px 50px 5px 20px;
 	text-align: left;
-	font-size: 14;
+	font-size: 18px;
 	line-height: 20px;
 	letter-spacing: 0.5pt;
   font-family: 'Times New Roman', 'Hiragino Kaku Gothic ProN', sans-serif;
@@ -98,6 +98,7 @@ ul
 	text-align: left;
 	line-height: 30px;
   font-family: 'Times New Roman', 'Hiragino Kaku Gothic ProN', sans-serif;
+  font-size: 18px;
 }
 
 ol
