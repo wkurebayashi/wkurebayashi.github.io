@@ -1,4 +1,4 @@
-const freq = 1760, freq_cut = 1500, freq_min = 1560, freq_max = 1960, fftSize = 128;
+const freq = 1760, freq_cut = 1500, freq_min = 1560, freq_max = 1960, fftSize = 128, T0 = 60/75;
 var context, stage = 0, threshold, log_beep = [], log_tap = [], log_s = [], s, T, delta = 0, limit;
 
 function transition(stage) {
@@ -90,15 +90,14 @@ function setup2() {
         const analyser = context.createAnalyser({fftSize: fftSize});
         const source = context.createMediaStreamSource(stream);
         source.connect(analyser);
-        const period = 1;
         var last_beep = 0, last_tap = 0, cnt_tap = 0, cnt_beep = 0;
 
         for(var i = 0; i < 10; i++) {
-            beep(context.currentTime + i*period);
+            beep(context.currentTime + i*T0);
         }
 
-        s = context.currentTime + 9*period;
-        T = period;
+        s = context.currentTime + 9*T0;
+        T = T0;
 
         function get_features() {
             var data = new Uint8Array(analyser.frequencyBinCount);
@@ -141,7 +140,7 @@ function setup2() {
             }
         }
 
-        limit = context.currentTime + 10*period;
+        limit = context.currentTime + 10*T0;
         iteration();
     });
 }
@@ -202,9 +201,9 @@ function experiment() {
 }
 
 function virtual_partner() {
-    const alpha = 0.5, beta = 0.02, sigma = 0.05;
-    s = s + T - alpha*delta + sigma*randn();
-    T = T - beta*delta;
+    const alpha = 0.3, beta = 0.03, sigma = 0.03, k = 0.01;
+    s = s + T - alpha*delta;
+    T = T - beta*delta + k*(T0-T) + sigma*randn();
     delta = 0;
     if(s < limit) {
         log_s.push(s);
