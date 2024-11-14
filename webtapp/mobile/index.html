@@ -4,13 +4,16 @@
     <link rel="stylesheet" href="style.css">
     <script type="text/javascript" src="program.js"></script>
 </head>
-<body onmousedown="body_click()">
+<body>
     <div class="parent">
         <div class="child" id="panel1">
+            <div class="subchild"></div>
+            <div class="subchild" id="text"></div>
+            <div class="subchild"></div>
         </div>
         <div class="child" id="panel2">
             <div class="subchild"></div>
-            <div class="subchild"><div id="label">start</div></div>
+            <div class="subchild"><input type="button" id="button" value="start" onmousedown="tap()"></div>
             <div class="subchild"></div>
         </div>
     </div>

@@ -16,6 +16,13 @@
     font-size: 60px;
     color: black;
     width: 100%;
-    height: 33%;
+    height: 100%;
+    text-align: center;
+}
+
+#button {
+    font-size: 60px;
+    width: 50%;
+    height: 100%;
     text-align: center;
 }
