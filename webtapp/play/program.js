@@ -3,9 +3,15 @@ var context;
 
 function start() {
     context = new AudioContext();
+    frequency = parseInt(document.getElementById('text1').value);
+    bpm = parseInt(document.getElementById('text2').value);
+    
     for(var i = 0; i < time.length; i++) {
-        beep(1750, time[i]);
+        beep(frequency, time[i]*60/bpm);
     }
+
+    button = document.getElementById('button');
+    button.disabled = true;
 }
 
 function beep(frequency, time) {
